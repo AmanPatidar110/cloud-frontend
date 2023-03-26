@@ -1,0 +1,32 @@
+@import "../variables.scss";
+
+.login {
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  background-color: var(--brandingbase);
+  @include all-center;
+
+  .login-form {
+    border-radius: 10px;
+    padding: calc(var(--standardspacing));
+    width: 90%;
+    max-width: 500px;
+    background-color: #ffffff;
+    border-radius: 3px;
+    margin: auto;
+
+    .brand-image {
+      background-color: white;
+      border-radius: 10px;
+      display: table;
+      margin: auto;
+    }
+
+    .login-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}

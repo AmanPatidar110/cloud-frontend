@@ -1,0 +1,73 @@
+.dashboard {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+
+  &-header {
+    width: 100%;
+    height: var(--headerheight);
+    padding: var(--standardspacing);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: var(--brandingbase);
+
+    &-logo {
+      height: calc(var(--standardspacing) * 2.5);
+
+      @media (max-width: 568px) {
+        height: calc(var(--standardspacing) * 3.5);
+      }
+    }
+
+    &-menu {
+      flex: 1;
+      height: 100%;
+      margin-left: calc(var(--standardspacing) * 3);
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      overflow-x: auto;
+
+      &-item {
+        text-decoration: none;
+        color: var(--hovergrey);
+        margin: 0 var(--standardspacing);
+
+        @media (max-width: 568px) {
+          margin: 0 calc(var(--standardspacing) / 2);
+        }
+
+        &:hover,
+        &-selected {
+          color: var(--subtlegrey);
+        }
+      }
+    }
+  }
+
+  &-innercontainer {
+    width: 100%;
+    height: calc(100% - var(--headerheight));
+    & h1 {
+      font-size: 1.5rem;
+      font-weight: 400;
+    }
+    &-componentcard {
+      background-color: #fff;
+      min-height: calc(100% - var(--headerheight));
+    }
+  }
+
+  &-footer {
+    font-size: 0.8em;
+    text-align: center;
+    color: var(--textgrey);
+  }
+}
+
+.table-action-button {
+  margin: 0.2rem 0.15rem;
+}

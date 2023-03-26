@@ -1,48 +1,56 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
+  BrowserRouter,
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
 } from "react-router-dom";
-import { setUser } from "./store/appSlice";
-import Dashboard from "./UI/Views/Dashboard";
-import Login from "./UI/Views/Login";
+import { loginUser, logoutUser } from "./store/appSlice";
 import { auth } from "./utils/firebaseLogin";
+import Loader from "./UI/Reusable/Loader";
+import ProtectedRoute from "./UI/Reusable/ProtectedRoute";
+import Dashboard from "./UI/Controllers/Dashboard";
+import { Login } from "./UI/Controllers/Login";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+// import useLogout from "./helpers/hooks/useLogout";
 
 const App = (props) => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.app.user);
-  const router = createBrowserRouter([
-    {
-      path: "/login",
-      element: <Login />,
-      // errorElement: <ErrorPage />,
-    },
-    {
-      path: "/dashboard",
-      element: <Dashboard />,
-      // errorElement: <ErrorPage />,
-    },
-  ]);
+  // const logout = useLogout();
+  const history = useHistory();
 
-  console.log(user ?? "No user in App");
+  const showLoader = useSelector((state) => state.app.showLoader);
 
+  const [user, loading, error] = useAuthState(auth);
+
+  console.log("user: ", user);
   useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
-      const { displayName, email } = user;
-      console.log("user changed: ", email);
-      dispatch(
-        setUser({
-          displayName,
-          email,
-        })
-      );
-      <Navigate to="/dashboard" replace={true} />;
-    });
-  }, []);
+    if (loading) return;
+    if (!user) return history?.replace("/login");
 
-  return <RouterProvider router={router}></RouterProvider>;
+    dispatch(loginUser({ displayName: user.displayName, email: user.email, photoURL: user.photoURL }));
+  }, [user, loading]);
+
+  return (
+    <React.Fragment>
+      {showLoader ? <Loader title={showLoader} /> : null}
+
+      <BrowserRouter>
+        <Switch>
+          <ProtectedRoute path={"/dashboard"} component={Dashboard} />
+          <Route path={"/login"} component={Login} />
+          {/* <Route path={"/forget-password"} component={ForgetPassword} /> */}
+
+          <Route>
+            <Redirect to="/login" />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </React.Fragment>
+  );
 };
 
 export default App;

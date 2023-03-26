@@ -1,0 +1,70 @@
+#root {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--brandingbackground);
+}
+
+* {
+  box-sizing: border-box;
+  font-display: swap;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100vh;
+  background-color: var(--brandingbackground);
+
+  @media screen {
+    overflow-x: hidden;
+  }
+}
+
+body {
+  display: block;
+  line-height: 1.61;
+  max-width: 100%;
+  min-width: 100%;
+  color: var(--black);
+  background: var(--white);
+  font-family: "Roboto", sans-serif !important;
+  font-size: var(--extraspacing);
+  position: relative;
+
+  @media screen {
+    overflow-x: hidden;
+  }
+}
+
+// To hide Arrows in Input type number
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.statusdropdown-custom {
+  padding: 0.25em;
+  border: 1px solid rgb(223, 223, 223);
+  border-radius: 0.25em;
+  color: rgb(60, 60, 60);
+}
+
+.horizontalformitems {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: var(--standardspacing);
+
+  &-item {
+    flex: 1;
+  }
+}

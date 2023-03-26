@@ -1,0 +1,61 @@
+// Proposal Template Colours
+:root {
+  --brandingbase: #242424;
+  --brandingbackground: #efefef;
+  --brandingprimaryone: #00cdff;
+  --brandingprimarytwo: #fff019;
+  --templatesecondary: #009688;
+  --muiBackgroundDisabled: rgba(0, 0, 0, 0.12);
+  --muiTextDisabled: rgba(0, 0, 0, 0.26);
+  --projectCardInactive: rgba(224, 224, 224, 0.8);
+
+  --white: #ffffff;
+  --brandingcolor: #03989e;
+  --brandingemphasis: #004d40;
+  --black: #313131;
+  --primary: #3955ea;
+  --google-blue: #4285f4;
+  --button-active-blue: #1669f2;
+
+  --materialblue: #3f51b5;
+  --mapsgreen: #1ea362;
+
+  --leadsourcebg: #008080;
+
+  // Grey tints.
+  --subtlegrey: #fafbfc;
+  --backgroundgrey: #efefef;
+  --bordergrey: #cfcfcf;
+  --hovergrey: #afafaf;
+  --textgrey: #707070;
+  --subtextgrey: #909090;
+  --crmgrey: #f1f3f5;
+  --extragrey: #c4c4c4;
+  --lightred: #f5a0a0;
+  --highlightteal: teal;
+  --header: #1976d2;
+  --dueyellow: #f2d600;
+  --warningyellow: #ffc107;
+
+  // Box Shadows
+  --standardshadow: 0 1px 2px 0.25px rgba(0, 0, 0, 0.12),
+    0 1px 3px 0.25px rgba(0, 0, 0, 0.24);
+  --longershadow: 0 5px 10px 0.25px rgba(0, 0, 0, 0.12),
+    0 5px 15px 0.25px rgba(0, 0, 0, 0.24);
+  --wideshadow: 0 5px 20px rgba(50, 50, 93, 0.1);
+  --funkyshadow: 0 2px 5px 0px rgba(50, 50, 93, 0.1);
+  --materialshadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+
+  // Paddings and Spacing
+  --standardspacing: 0.75rem;
+  --midspacing: 0.875rem;
+  --extraspacing: 1rem;
+  --headerheight: 68px;
+}
+
+@mixin all-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

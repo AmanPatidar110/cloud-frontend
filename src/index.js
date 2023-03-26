@@ -1,15 +1,13 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import "./styles/index.css";
+import "./styles/index.scss";
 import { StyleProvider } from "@ant-design/cssinjs";
 import { ConfigProvider } from "antd";
 import App from "./App";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import ReactDOM from "react-dom";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-
-root.render(
+ReactDOM.render(
   <React.StrictMode>
     <ConfigProvider>
       <StyleProvider hashPriority="high">
@@ -18,5 +16,6 @@ root.render(
         </Provider>
       </StyleProvider>
     </ConfigProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById("root")
 );

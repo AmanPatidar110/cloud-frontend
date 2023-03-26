@@ -2,15 +2,15 @@ import { Modal } from "antd";
 import React, { useState } from "react";
 
 import { Form, Input } from "antd";
-import { add_project_api } from "../../API/projectAPIs";
+import { getProjectsList } from "../../API/Project";
 
-const AddProjectModal = ({ isModalOpen = true, handleCancel }) => {
+const ProjectModal = ({ isModalOpen, handleCancel, setIsModalOpen }) => {
   const onFinish = async (values) => {
     console.log("OnFInish", values);
   };
   const handleOk = async (values) => {
     console.log("onok", { projectName, githubLink });
-    await add_project_api(projectName, githubLink);
+    await getProjectsList(projectName, githubLink);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -68,4 +68,4 @@ const AddProjectModal = ({ isModalOpen = true, handleCancel }) => {
   );
 };
 
-export default AddProjectModal;
+export default ProjectModal;
