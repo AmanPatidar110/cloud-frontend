@@ -20,7 +20,6 @@ export const appSlice = createSlice({
       state.isAuthenticated = false;
     },
     setShowLoader: (state, { payload }) => {
-      console.log("Show loader...", payload);
       state.showLoader = payload;
     },
   },

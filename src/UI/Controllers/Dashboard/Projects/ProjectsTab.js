@@ -21,13 +21,14 @@ const ProjectsTab = () => {
 
   useEffect(() => {
     loader("Loading Projects");
+    console.log("page, limit, searchText", page, limit, searchText);
     (async () => {
       try {
         const data = await getProjectsList(page, limit, searchText);
-        setTotalRows(data?.totalDocs);
+        setTotalRows(data?.totalDocs || 0);
         loader();
 
-        setProjectsList(data?.docs || []);
+        setProjectsList(data?.projects || []);
       } catch (error) {
         toasts.generateError("Error loading projects list: " + error);
       }

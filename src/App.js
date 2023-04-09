@@ -25,8 +25,7 @@ const App = (props) => {
   const showLoader = useSelector((state) => state.app.showLoader);
 
   const [user, loading, error] = useAuthState(auth);
-
-  console.log("user: ", user);
+ 
   useEffect(() => {
     if (loading) return;
     if (!user) return history?.replace("/login");

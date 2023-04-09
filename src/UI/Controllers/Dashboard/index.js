@@ -7,9 +7,7 @@ import DashboardUI from "../../Views/DashboardUI";
 const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState("projects");
 
-  const dispatch = useDispatch();
   useEffect(() => {
-    console.log("Dashboard");
     const page = mapFromQueryString()["page"];
     setCurrentPage(
       dashboardHeaderMenu[page] ? page : dashboardHeaderMenu.projects.key

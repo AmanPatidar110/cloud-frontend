@@ -46,8 +46,5 @@ const DashboardUI = ({ currentPage, setCurrentPage }) => {
       <p className="dashboard-footer"></p>
     </div>
   );
-  // return (
-
-  // );
 };
 export default DashboardUI;

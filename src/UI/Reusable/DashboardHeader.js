@@ -23,7 +23,6 @@ const DashboardHeader = ({ currentPage, setCurrentPage }) => {
       onCancel() {},
     });
   };
-  console.log("user in Header: ", user);
 
   return (
     <header className="dashboard-header">
@@ -78,10 +77,14 @@ const DashboardHeader = ({ currentPage, setCurrentPage }) => {
         <Button
           style={{ padding: 0 }}
           icon={
-            <Avatar
-              style={{ backgroundColor: "#87d068" }}
-              src={user?.photoURL || <UserOutlined />}
-            />
+            user?.photoURL ? (
+              <Avatar
+                style={{ backgroundColor: "#87d068" }}
+                src={user?.photoURL}
+              />
+            ) : (
+              <UserOutlined />
+            )
           }
           type="text"
         ></Button>
@@ -93,8 +96,8 @@ const DashboardHeader = ({ currentPage, setCurrentPage }) => {
 export const dashboardHeaderMenu = {
   projects: {
     label: "Projects",
-    url: "/dashboard?page=project",
-    key: "project",
+    url: "/dashboard?page=projects",
+    key: "projects",
   },
 };
 

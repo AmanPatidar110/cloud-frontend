@@ -1,11 +1,7 @@
 import { initializeApp } from "firebase/app";
 import {
   GoogleAuthProvider,
-  getAuth,
-  signInWithPopup,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  sendPasswordResetEmail,
+  getAuth, 
   signOut,
 } from "firebase/auth";
 import { useDispatch } from "react-redux";

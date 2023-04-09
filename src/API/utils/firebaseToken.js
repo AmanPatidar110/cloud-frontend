@@ -1,9 +1,10 @@
-import firebase from "firebase/compat/app";
+import { getAuth } from "firebase/auth";
 
 export const getToken = async () => {
   try {
-    const user = firebase.auth().currentUser;
-    return await user.getIdToken();
+    const auth = getAuth();
+
+    return await auth.currentUser.getIdToken();
   } catch (err) {
     console.log("Error getToken", err);
     throw err;
