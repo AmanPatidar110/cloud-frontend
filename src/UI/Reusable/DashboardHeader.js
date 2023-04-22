@@ -1,12 +1,12 @@
-import { Avatar, Button, Image, Popover } from "antd";
-import React from "react";
-import { Link } from "react-router-dom";
-import { UserOutlined, WarningFilled } from "@ant-design/icons";
+import { Avatar, Button, Image, Popover } from 'antd';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { UserOutlined, WarningFilled } from '@ant-design/icons';
 
-import { useSelector } from "react-redux";
-import { Modal } from "antd";
-import useLogout from "../../helpers/hooks/useLogout";
-import logo from "../../static/images/logo.webp";
+import { useSelector } from 'react-redux';
+import { Modal } from 'antd';
+import useLogout from '../../helpers/hooks/useLogout';
+import logo from '../../static/images/logo.webp';
 
 const DashboardHeader = ({ currentPage, setCurrentPage }) => {
   const user = useSelector((state) => state.app.user);
@@ -14,9 +14,9 @@ const DashboardHeader = ({ currentPage, setCurrentPage }) => {
 
   const logoutClicked = () => {
     Modal.confirm({
-      title: "Logout",
+      title: 'Logout',
       icon: <WarningFilled />,
-      content: "are you sure?",
+      content: 'are you sure?',
       onOk() {
         logout();
       },
@@ -28,10 +28,9 @@ const DashboardHeader = ({ currentPage, setCurrentPage }) => {
     <header className="dashboard-header">
       <h1
         style={{
-          backgroundColor: "white",
-          borderRadius: "10px",
-          padding: "0.2rem",
-          margin: "0.5rem 0",
+          borderRadius: '10px',
+          padding: '0.2rem',
+          margin: '0.5rem 0',
         }}
       >
         <img width={50} height={35} src={logo}></img>
@@ -42,7 +41,7 @@ const DashboardHeader = ({ currentPage, setCurrentPage }) => {
           <Link
             to={dashboardHeaderMenu[key].url}
             className={`dashboard-header-menu-item ${
-              currentPage === key ? "dashboard-header-menu-item-selected" : ""
+              currentPage === key ? 'dashboard-header-menu-item-selected' : ''
             }`}
             key={key}
             onClick={() => setCurrentPage?.(key)}
@@ -79,7 +78,7 @@ const DashboardHeader = ({ currentPage, setCurrentPage }) => {
           icon={
             user?.photoURL ? (
               <Avatar
-                style={{ backgroundColor: "#87d068" }}
+                style={{ backgroundColor: '#87d068' }}
                 src={user?.photoURL}
               />
             ) : (
@@ -95,9 +94,14 @@ const DashboardHeader = ({ currentPage, setCurrentPage }) => {
 
 export const dashboardHeaderMenu = {
   projects: {
-    label: "Projects",
-    url: "/dashboard?page=projects",
-    key: "projects",
+    label: 'Projects',
+    url: '/dashboard?page=projects',
+    key: 'projects',
+  },
+  storage: {
+    label: 'Storage',
+    url: '/dashboard?page=storage',
+    key: 'storage',
   },
 };
 

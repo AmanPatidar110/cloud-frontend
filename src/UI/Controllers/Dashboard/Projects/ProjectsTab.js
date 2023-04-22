@@ -1,27 +1,31 @@
-import { useEffect, useState } from "react";
-import { getProjectsList, putProject } from "../../../../API/Project";
-import toasts from "../../../../constants/toasts";
-import useLoader from "../../../../helpers/hooks/useLoader";
-import ProjectModal from "../../../Modals/ProjectModal";
-import ProjectsTabUI from "../../../Views/DashboardUI/Projects/ProjectsTabUI";
+import { useEffect, useState } from 'react';
+import {
+  getProject,
+  getProjectsList,
+  putProject,
+} from '../../../../API/Project';
+import toasts from '../../../../constants/toasts';
+import useLoader from '../../../../helpers/hooks/useLoader';
+import ProjectModal from '../../../Modals/ProjectModal';
+import ProjectsTabUI from '../../../Views/DashboardUI/Projects/ProjectsTabUI';
 
 const ProjectsTab = () => {
-  const [projectsList, setProjectsList] = useState();
+  const [projectsList, setProjectsList] = useState([]);
   const [showAddProject, setShowAddProject] = useState({
     key: false,
-    mode: "",
+    mode: '',
     data: {},
   });
   const [searchText, setSearchText] = useState();
   const [totalRows, setTotalRows] = useState();
-  const [page, setPage] = useState();
-  const [limit, setLimit] = useState();
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
 
   const loader = useLoader();
 
   useEffect(() => {
-    loader("Loading Projects");
-    console.log("page, limit, searchText", page, limit, searchText);
+    loader('Loading Projects');
+    console.log('page, limit, searchText', page, limit, searchText);
     (async () => {
       try {
         const data = await getProjectsList(page, limit, searchText);
@@ -30,7 +34,7 @@ const ProjectsTab = () => {
 
         setProjectsList(data?.projects || []);
       } catch (error) {
-        toasts.generateError("Error loading projects list: " + error);
+        toasts.generateError('Error loading projects list: ' + error);
       }
     })();
   }, [searchText, page, limit]);
@@ -49,12 +53,12 @@ const ProjectsTab = () => {
 
   const onPaginationChange = (page, limit) => {
     setPage(page);
-    setLimit(limit);
+    setLimit(limit || 10);
   };
 
   const onChangeActive = async (projectDetails, isActive) => {
     try {
-      loader("Updating Project");
+      loader('Updating Project');
       await putProject(
         {
           ...projectDetails,
@@ -71,7 +75,7 @@ const ProjectsTab = () => {
       onProjectUpdated?.(projectDetails, projectDetails?._id);
       loader();
     } catch (error) {
-      toasts.generateError("Error updating project: " + error);
+      toasts.generateError('Error updating project: ' + error);
     }
   };
   return (
@@ -87,11 +91,12 @@ const ProjectsTab = () => {
         totalRows={totalRows}
         onPaginationChange={onPaginationChange}
         onChangeActive={onChangeActive}
+        getProject={getProject}
       />
       {showAddProject?.key ? (
         <ProjectModal
           showAddProject={showAddProject}
-          toggler={() => setShowAddProject({ key: false, mode: "" })}
+          toggler={() => setShowAddProject({ key: false, mode: '' })}
           onProjectAdded={onProjectAdded}
           onProjectUpdated={onProjectUpdated}
         />

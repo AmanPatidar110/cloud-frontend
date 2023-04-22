@@ -11,7 +11,7 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    background-color: var(--brandingbase);
+    background-color: var(--primary);
 
     &-logo {
       height: calc(var(--standardspacing) * 2.5);
@@ -56,7 +56,7 @@
       font-weight: 400;
     }
     &-componentcard {
-      background-color: #fff;
+      // background-color: #fff;
       min-height: calc(100% - var(--headerheight));
     }
   }

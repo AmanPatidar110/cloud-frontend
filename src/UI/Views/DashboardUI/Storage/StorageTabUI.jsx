@@ -1,49 +1,52 @@
 import React from 'react';
 import { Button, Input, Layout, Menu, Table } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import ProjectModal from '../../../Modals/ProjectModal';
+import FileModal from '../../../Modals/FileModal';
 import { Header } from 'antd/es/layout/layout';
-import { ProjectCard, ProjectsList } from './ProjectsList';
+import { FileCard, FilesList } from './FilesList';
 
-const ProjectsTabUI = ({
-  filteredProjectList,
-  setShowAddProject,
-  showAddProject,
+const StorageTabUI = ({
+  filteredFilesList,
+  setShowAddFile,
+  showAddFile,
   searchText,
   setSearchText,
   onPaginationChange,
   totalRows,
   onChangeActive,
-  getProject,
+  removeFile,
+  downloadFile,
 }) => {
+  console.log('In STORAGE UI', filteredFilesList);
   return (
     <React.Fragment>
       <div className="dashboardtab">
         <div className="dashboardtab-searchrow">
           <Input
-            placeholder="Search Projects"
+            placeholder="Search Files"
             prefix={<SearchOutlined />}
             className="dashboardtab-searchrow-search me-2"
             value={searchText}
-            onChange={(ev) => setSearchText(ev.target.value)}
+            // onChange={(ev) => setSearchText(ev.target.value)}
           />
           <Button
             type="primary"
-            onClick={() => setShowAddProject({ key: true, mode: 'ADD' })}
+            onClick={() => setShowAddFile({ key: true, mode: 'ADD' })}
           >
             Add New
           </Button>
         </div>
         <br />
-        <ProjectsList
+        <FilesList
           totalRows={totalRows}
           onPaginationChange={onPaginationChange}
-          list={filteredProjectList}
-          getProject={getProject}
+          list={filteredFilesList}
+          removeFile={removeFile}
+          downloadFile={downloadFile}
         />
       </div>
     </React.Fragment>
   );
 };
 
-export default ProjectsTabUI;
+export default StorageTabUI;
