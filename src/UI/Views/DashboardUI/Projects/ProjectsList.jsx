@@ -1,11 +1,15 @@
 // @flow
 import {
   BranchesOutlined,
+  BuildOutlined,
   EditOutlined,
   EllipsisOutlined,
+  GithubOutlined,
   GlobalOutlined,
   LikeOutlined,
+  LinkOutlined,
   MessageOutlined,
+  NumberOutlined,
   SettingOutlined,
   StarOutlined,
 } from '@ant-design/icons';
@@ -20,6 +24,8 @@ export const ProjectsList = ({
   getProject,
   totalRows,
   onPaginationChange,
+  ip,
+  setShowViewProject,
 }) => {
   const IconText = ({ icon, text }) => (
     <Space>
@@ -50,11 +56,37 @@ export const ProjectsList = ({
             backgroundColor: 'black',
             border: '1px solid grey',
             borderRadius: '10px',
-            // width: "48%",
+            cursor: 'pointer',
+            padding: '0.5rem',
+            minHeight: '10rem',
           }}
-          onClick={() => getProject(item?._id)}
+          onClick={() =>
+            setShowViewProject({ key: true, data: { _id: item?._id } })
+          }
           key={item?.projectName}
           actions={[
+            <IconText
+              icon={LinkOutlined}
+              text={
+                item?.port ? (
+                  <a
+                    onClick={(e) => e.stopPropagation()}
+                    target="_blank"
+                    href={`http://${ip}:${item?.port}`}
+                  >
+                    {ip}:{item?.port}
+                  </a>
+                ) : (
+                  'Processing...'
+                )
+              }
+              key="list-vertical-star-o"
+            />,
+            <IconText
+              icon={BuildOutlined}
+              text={item?.projectType || 'Unknown Type'}
+              key="list-vertical-star-o"
+            />,
             <IconText
               icon={BranchesOutlined}
               text="master"
@@ -66,8 +98,17 @@ export const ProjectsList = ({
               key="list-vertical-like-o"
             />,
             <IconText
-              icon={MessageOutlined}
-              text="2"
+              icon={NumberOutlined}
+              text={item?.replicas || 1}
+              key="list-vertical-message"
+            />,
+            <IconText
+              icon={GithubOutlined}
+              text={
+                item?.githubLink
+                  ? item?.githubLink.replace('https://github.com', '')
+                  : ''
+              }
               key="list-vertical-message"
             />,
           ]}
@@ -75,9 +116,17 @@ export const ProjectsList = ({
           <List.Item.Meta
             avatar={<Avatar src={logo} />}
             title={<a href={item?.href}>{item?.projectName}</a>}
-            description={item?.githubLink}
+            //   description={
+            //     item?.port ? (
+            //       <a>
+            //         <LinkOutlined />
+            //         {ip}:{item?.port}
+            //       </a>
+            //     ) : (
+            //       'Processing...'
+            //     )
+            //   }
           />
-          {item?.content}
         </List.Item>
       )}
     />

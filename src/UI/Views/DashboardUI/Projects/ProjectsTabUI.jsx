@@ -8,13 +8,14 @@ import { ProjectCard, ProjectsList } from './ProjectsList';
 const ProjectsTabUI = ({
   filteredProjectList,
   setShowAddProject,
-  showAddProject,
   searchText,
   setSearchText,
   onPaginationChange,
   totalRows,
   onChangeActive,
   getProject,
+  setShowViewProject,
+  ip,
 }) => {
   return (
     <React.Fragment>
@@ -36,10 +37,12 @@ const ProjectsTabUI = ({
         </div>
         <br />
         <ProjectsList
+          ip={ip}
           totalRows={totalRows}
           onPaginationChange={onPaginationChange}
           list={filteredProjectList}
           getProject={getProject}
+          setShowViewProject={setShowViewProject}
         />
       </div>
     </React.Fragment>

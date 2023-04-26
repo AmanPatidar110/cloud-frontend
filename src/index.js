@@ -1,11 +1,11 @@
-import React from "react";
-import "./styles/index.scss";
-import { StyleProvider } from "@ant-design/cssinjs";
-import { ConfigProvider, theme } from "antd";
-import App from "./App";
-import { Provider } from "react-redux";
-import { store } from "./store/store";
-import ReactDOM from "react-dom";
+import React from 'react';
+import './styles/index.scss';
+import { StyleProvider } from '@ant-design/cssinjs';
+import { ConfigProvider, theme } from 'antd';
+import App from './App';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
+import ReactDOM from 'react-dom';
 
 const { darkAlgorithm } = theme;
 ReactDOM.render(
@@ -14,7 +14,7 @@ ReactDOM.render(
       theme={{
         algorithm: [darkAlgorithm],
         token: {
-          colorPrimary: "#0000",
+          colorPrimary: '#575757',
         },
       }}
     >
@@ -25,5 +25,5 @@ ReactDOM.render(
       </StyleProvider>
     </ConfigProvider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );

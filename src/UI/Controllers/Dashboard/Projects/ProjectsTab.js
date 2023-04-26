@@ -8,6 +8,7 @@ import toasts from '../../../../constants/toasts';
 import useLoader from '../../../../helpers/hooks/useLoader';
 import ProjectModal from '../../../Modals/ProjectModal';
 import ProjectsTabUI from '../../../Views/DashboardUI/Projects/ProjectsTabUI';
+import ViewProjectModal from '../../../Modals/ViewProjectModal';
 
 const ProjectsTab = () => {
   const [projectsList, setProjectsList] = useState([]);
@@ -16,22 +17,27 @@ const ProjectsTab = () => {
     mode: '',
     data: {},
   });
+  const [showViewProject, setShowViewProject] = useState({
+    key: false,
+    data: {},
+  });
   const [searchText, setSearchText] = useState();
   const [totalRows, setTotalRows] = useState();
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
+  const [ip, setIp] = useState('');
 
   const loader = useLoader();
 
   useEffect(() => {
-    loader('Loading Projects');
+    loader('Loading Projects...');
     console.log('page, limit, searchText', page, limit, searchText);
     (async () => {
       try {
         const data = await getProjectsList(page, limit, searchText);
         setTotalRows(data?.totalDocs || 0);
         loader();
-
+        setIp(data.ip);
         setProjectsList(data?.projects || []);
       } catch (error) {
         toasts.generateError('Error loading projects list: ' + error);
@@ -78,12 +84,15 @@ const ProjectsTab = () => {
       toasts.generateError('Error updating project: ' + error);
     }
   };
+
   return (
     <>
       <ProjectsTabUI
         filteredProjectList={projectsList}
         showAddProject={showAddProject}
         setShowAddProject={setShowAddProject}
+        showViewProject={showViewProject}
+        setShowViewProject={setShowViewProject}
         searchText={searchText}
         setSearchText={setSearchText}
         onProjectAdded={onProjectAdded}
@@ -92,6 +101,7 @@ const ProjectsTab = () => {
         onPaginationChange={onPaginationChange}
         onChangeActive={onChangeActive}
         getProject={getProject}
+        ip={ip}
       />
       {showAddProject?.key ? (
         <ProjectModal
@@ -99,6 +109,12 @@ const ProjectsTab = () => {
           toggler={() => setShowAddProject({ key: false, mode: '' })}
           onProjectAdded={onProjectAdded}
           onProjectUpdated={onProjectUpdated}
+        />
+      ) : null}
+      {showViewProject?.key ? (
+        <ViewProjectModal
+          showViewProject={showViewProject}
+          toggler={() => setShowViewProject({ key: false, data: {} })}
         />
       ) : null}
     </>

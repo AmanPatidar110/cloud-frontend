@@ -1,7 +1,7 @@
-import { useDispatch } from "react-redux";
-import toasts from "../../constants/toasts";
-import { logoutUser } from "../../store/appSlice";
-import { auth } from "../../utils/firebaseLogin";
+import { useDispatch } from 'react-redux';
+import toasts from '../../constants/toasts';
+import { logoutUser } from '../../store/appSlice';
+import { auth } from '../../utils/firebase';
 
 const useLogout = () => {
   const dispatch = useDispatch();
@@ -9,12 +9,12 @@ const useLogout = () => {
   const _logoutUser = async (callback) => {
     try {
       await auth.signOut();
-      toasts.generateSuccess("Signed out");
+      toasts.generateSuccess('Signed out');
       dispatch(logoutUser());
 
       callback?.();
     } catch (error) {
-      toasts.generateSuccess("Sign out: " + error);
+      toasts.generateSuccess('Sign out: ' + error);
     }
   };
 

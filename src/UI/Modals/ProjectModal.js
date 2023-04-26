@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 
-import { Button, Form, Input, Modal } from 'antd';
+import { Button, Form, Input, InputNumber, Modal, Select, Space } from 'antd';
 import useLoader from '../../helpers/hooks/useLoader';
 import toasts from '../../constants/toasts';
 import { postProject, putProject } from '../../API/Project';
+
+const projectNameRegex = /^[a-z0-9-]+$/;
 
 const ProjectModal = ({
   showAddProject,
@@ -12,16 +14,28 @@ const ProjectModal = ({
   onProjectUpdated,
 }) => {
   const projectData = showAddProject?.data;
-  const [projectDetails, setProjectDetails] = useState(projectData ?? {});
+  const [projectDetails, setProjectDetails] = useState(
+    projectData ?? { replicas: 1, projectType: 'React' }
+  );
 
   const loader = useLoader();
 
   const addProject = async (ev) => {
     ev?.preventDefault?.();
 
-    if (!projectDetails?.githubLink || !projectDetails?.projectName)
+    if (
+      !projectDetails?.githubLink ||
+      !projectDetails?.projectName ||
+      !projectDetails.replicas ||
+      !projectDetails.projectType
+    )
       return toasts.generateError('Please enter all the fields!');
 
+    if (!projectNameRegex.test(projectDetails.projectName)) {
+      return toasts.generateError(
+        "Only small letters, numbers & '-' is allowed in the project name"
+      );
+    }
     let newDetails;
     try {
       loader('Loading...');
@@ -78,7 +92,10 @@ const ProjectModal = ({
       ]}
     >
       <Form onFinish={addProject} className="add-kyc-request">
-        <Form.Item label="Project Name">
+        <Form.Item
+          label="Project Name"
+          extra="Only small letters, numbers and '-' is allowed"
+        >
           <Input
             placeholder="Project Name"
             name="projectName"
@@ -86,6 +103,39 @@ const ProjectModal = ({
             onChange={onChange}
           />
         </Form.Item>
+        <Space size={100} style={{ width: '100%' }}>
+          <Form.Item label="Project Type">
+            <Select
+              defaultValue="React"
+              style={{
+                width: 120,
+              }}
+              name="projectType"
+              options={[
+                {
+                  value: 'React',
+                  label: 'React Js',
+                },
+                {
+                  value: 'Node',
+                  label: 'Node Js',
+                },
+              ]}
+              onChange={(val) => onChange('', 'projectType', val)}
+            />
+          </Form.Item>
+
+          <Form.Item label="No. of Replicas">
+            <InputNumber
+              min={1}
+              max={4}
+              style={{ width: '100%' }}
+              name="replicas"
+              value={projectDetails?.replicas}
+              onChange={(val) => onChange('', 'replicas', val)}
+            />
+          </Form.Item>
+        </Space>
 
         <Form.Item label="Github Link">
           <Input

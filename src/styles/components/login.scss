@@ -1,4 +1,4 @@
-@import "../variables.scss";
+@import '../variables.scss';
 
 .login {
   width: 100%;
@@ -12,8 +12,9 @@
     padding: calc(var(--standardspacing));
     width: 90%;
     max-width: 500px;
-    background-color: #ffffff;
+    background-color: #000000;
     border-radius: 3px;
+    padding: 1rem;
     margin: auto;
 
     .brand-image {
@@ -27,6 +28,11 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+    }
+
+    .login-form-button {
+      background-color: #141414;
+      border: 1px solid grey;
     }
   }
 }

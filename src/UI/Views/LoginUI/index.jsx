@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import { auth, signInWithGoogle } from "../../../utils/firebaseLogin";
-import { GoogleOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Divider, Form, Input } from "antd";
+import { auth, signInWithGoogle } from '../../../utils/firebase';
+import { GoogleOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Checkbox, Divider, Form, Input } from 'antd';
 
-import logo from "../../../static/images/logo.webp";
-import { Link } from "react-router-dom";
+import logo from '../../../static/images/logo.webp';
+import { Link } from 'react-router-dom';
 
 export default function LoginUI({
   handleOnChange,
@@ -29,7 +29,7 @@ export default function LoginUI({
         >
           <Form.Item
             name="email"
-            rules={[{ required: true, message: "Please input your email!" }]}
+            rules={[{ required: true, message: 'Please input your email!' }]}
           >
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
@@ -40,7 +40,7 @@ export default function LoginUI({
           </Form.Item>
           <Form.Item
             name="password"
-            rules={[{ required: true, message: "Please input your Password!" }]}
+            rules={[{ required: true, message: 'Please input your Password!' }]}
           >
             <Input
               name="password"
