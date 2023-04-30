@@ -33,11 +33,11 @@ const ViewProjectModal = ({ showViewProject, toggler }) => {
         setProjectDetails(data?.project);
         setContainers(data?.containers);
         setIp(data?.ip);
-        loader();
       } catch (error) {
         console.log(error);
         toasts.generateError(`Error fetching project details. ${error}`);
       }
+      loader();
     })();
   }, []);
 

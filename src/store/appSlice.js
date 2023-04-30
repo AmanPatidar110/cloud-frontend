@@ -1,8 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 // create a slice
 export const appSlice = createSlice({
-  name: "app",
+  name: 'app',
   initialState: {
     showLoader: false,
     isAuthenticated: false,
@@ -10,19 +10,24 @@ export const appSlice = createSlice({
   },
   reducers: {
     loginUser: (state, { payload }) => {
-      console.log("Saving user in redux", payload);
+      console.log('Saving user in redux', payload);
       state.user = { ...payload };
       state.isAuthenticated = true;
     },
     logoutUser: (state, { payload }) => {
-      console.log("Loging-out", payload);
+      console.log('Loging-out', payload);
       state.user = null;
       state.isAuthenticated = false;
     },
     setShowLoader: (state, { payload }) => {
       state.showLoader = payload;
     },
+    setUser: (state, { payload }) => {
+      console.log('Saving user in redux', payload);
+      state.user = { ...(state.user || {}), ...payload };
+    },
   },
 });
 
-export const { loginUser, setShowLoader, logoutUser } = appSlice.actions;
+export const { loginUser, setShowLoader, logoutUser, setUser } =
+  appSlice.actions;

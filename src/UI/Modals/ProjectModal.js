@@ -15,7 +15,12 @@ const ProjectModal = ({
 }) => {
   const projectData = showAddProject?.data;
   const [projectDetails, setProjectDetails] = useState(
-    projectData ?? { replicas: 1, projectType: 'React' }
+    projectData ?? {
+      replicas: 1,
+      projectType: 'React',
+      maxRAM: 1,
+      maxStorage: 5,
+    }
   );
 
   const loader = useLoader();
@@ -129,10 +134,60 @@ const ProjectModal = ({
             <InputNumber
               min={1}
               max={4}
+              extra="max. 4 replicas"
               style={{ width: '100%' }}
               name="replicas"
               value={projectDetails?.replicas}
               onChange={(val) => onChange('', 'replicas', val)}
+            />
+          </Form.Item>
+        </Space>
+
+        <Space size={100} style={{ width: '100%' }}>
+          <Form.Item label="RAM Required" extra="max. 4GB">
+            <InputNumber
+              min={1}
+              addonAfter="GB"
+              max={4}
+              style={{ width: '100%' }}
+              name="maxRAM"
+              value={projectDetails?.maxRAM}
+              onChange={(val) => onChange('', 'maxRAM', val)}
+            />
+          </Form.Item>
+          <Form.Item label="Storage Required" extra="max. 10GB">
+            <InputNumber
+              min={1}
+              addonAfter="GB"
+              max={10}
+              style={{ width: '100%' }}
+              name="maxStorage"
+              value={projectDetails?.maxStorage}
+              onChange={(val) => onChange('', 'maxStorage', val)}
+            />
+          </Form.Item>
+        </Space>
+
+        <Space size={100} style={{ width: '100%' }}>
+          <Form.Item label="No. of cores" extra="max. 8">
+            <InputNumber
+              min={1}
+              max={8}
+              style={{ width: '100%' }}
+              name="cores"
+              value={projectDetails?.cores}
+              onChange={(val) => onChange('', 'cores', val)}
+            />
+          </Form.Item>
+          <Form.Item label="Network Bandwidth" extra="max. 10GBps">
+            <InputNumber
+              min={1}
+              addonAfter="GBps"
+              max={10}
+              style={{ width: '100%' }}
+              name="bandwidth"
+              value={projectDetails?.bandwidth}
+              onChange={(val) => onChange('', 'bandwidth', val)}
             />
           </Form.Item>
         </Space>

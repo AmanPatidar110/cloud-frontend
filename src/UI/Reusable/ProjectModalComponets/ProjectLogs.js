@@ -8,6 +8,7 @@ import {
   onChildAdded,
   query,
   limitToLast,
+  get,
 } from 'firebase/database';
 import { firebaseApp } from '../../../utils/firebase';
 import useLoader from '../../../helpers/hooks/useLoader';
@@ -28,19 +29,77 @@ export const ProjectLogs = ({ projectName }) => {
   //   }, []);
   React.useEffect(() => {
     if (!projectName) return;
-    const starCountRef = ref(db, projectName);
+    const dataRef = ref(db, projectName);
 
     // loader('loading');
     try {
-      onValue(starCountRef, (snapshot) => {
-        const data = snapshot.val();
-        console.log(data);
-        loader();
-      });
+      get(dataRef)
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            // The data exists, do something with it
+            const data = snapshot.val();
+
+            setLogs(Object.values(data));
+          } else {
+            console.log('No data available');
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     } catch (error) {
       console.log(error);
       loader();
     }
   }, [projectName]);
-  return <div></div>;
+
+  console.log(logs[0]);
+
+  return (
+    <>
+      {logs
+        .reverse()
+        .slice(0, 200)
+        .map((log, index) => {
+          return (
+            <div
+              key={index}
+              style={{
+                marginBottom: '0.5rem',
+                height: '100%',
+                overflow: 'auto',
+                borderBottom: '1px dashed grey',
+                paddingBottom: '0.2rem',
+              }}
+            >
+              <p
+                style={{
+                  lineHeight: '16px',
+                  fontSize: '0.8rem',
+                  margin: '0.2rem 0',
+                }}
+              >
+                <span
+                  style={{
+                    color: 'grey',
+                  }}
+                >
+                  {new Date(parseFloat(log.timeStamp)).toLocaleString()}:{' '}
+                </span>
+                <span>[{log.email}]: </span>
+              </p>
+              <p
+                style={{
+                  lineHeight: '16px',
+                  margin: '0',
+                  fontSize: '0.8rem',
+                }}
+              >
+                <span style={{ fontWeight: 'bold' }}>{`${log.message}`}</span>
+              </p>
+            </div>
+          );
+        })}
+    </>
+  );
 };

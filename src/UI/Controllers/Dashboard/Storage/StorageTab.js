@@ -20,6 +20,7 @@ const StorageTab = () => {
   const [totalRows, setTotalRows] = useState();
   const [page, setPage] = useState();
   const [limit, setLimit] = useState();
+  const [user, setUser] = useState();
 
   const loader = useLoader();
 
@@ -30,12 +31,13 @@ const StorageTab = () => {
       try {
         const data = await getFilesList(page, limit, searchText);
         setTotalRows(data?.totalDocs || 0);
-        loader();
 
         setFilesList(data?.files || []);
+        setUser(data?.user);
       } catch (error) {
         toasts.generateError('Error loading files list: ' + error);
       }
+      loader();
     })();
   }, [searchText, page, limit]);
 
@@ -132,6 +134,7 @@ const StorageTab = () => {
         onChangeActive={onChangeActive}
         removeFile={removeFile}
         downloadFile={downloadFile}
+        user={user}
       />
       {showAddFile?.key ? (
         <FileModal

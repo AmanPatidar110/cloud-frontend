@@ -36,12 +36,12 @@ const ProjectsTab = () => {
       try {
         const data = await getProjectsList(page, limit, searchText);
         setTotalRows(data?.totalDocs || 0);
-        loader();
         setIp(data.ip);
         setProjectsList(data?.projects || []);
       } catch (error) {
         toasts.generateError('Error loading projects list: ' + error);
       }
+      loader();
     })();
   }, [searchText, page, limit]);
 
